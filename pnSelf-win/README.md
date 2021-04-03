@@ -1,13 +1,3 @@
-
- '     :::::::::  ::::    :::          ::::::::  :::::::::: :::        :::::::::: 
-     :+:    :+: :+:+:   :+:         :+:    :+: :+:        :+:        :+:         
-    +:+    +:+ :+:+:+  +:+         +:+        +:+        +:+        +:+          
-   +#++:++#+  +#+ +:+ +#+         +#++:++#++ +#++:++#   +#+        :#::+::#      
-  +#+        +#+  +#+#+#                +#+ +#+        +#+        +#+            
- #+#        #+#   #+#+#         #+#    #+# #+#        #+#        #+#             
-###        ###    ####          ########  ########## ########## ###  '
-
-
 With pnSelf you can use features typically reserved for bots (sending embeds, 
 spam filling channels etc). It is nowhere near complete at this point. I plan on adding many more features to it in the future but for now it allows users to
 create custom embeds, spam channels, send disappearing messages, and send
