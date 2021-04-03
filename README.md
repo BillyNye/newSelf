@@ -11,3 +11,5 @@ token. If you dont know how to get your token, [here's a helpful guide](https://
  Once you have successfully logged in with your account token, type !!help in any
 channel and pnSelf will send an embed with a list of commands and how to use
 them.
+
+ [Download for windoes!](https://github.com/BillyNye/newSelf/blob/aeb1a564a771e94ab3262f2bc7cf4ceb1b5981d1/deploy/pnSelf.zip)
