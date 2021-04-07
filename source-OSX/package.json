@@ -1,0 +1,26 @@
+{
+  "main": "./main.js",
+  "name": "pnSelf",
+  "version": "0.0.2",
+  "bin": {
+    "pnSelf": "./main.js"
+  },
+  "dependencies": {
+    "discord.js": "^11.6.4"
+  },
+  "pkg": {
+    "assets": [
+      "dMsg.js",
+      "help.js",
+      "msgDesc.js",
+      "msgEmbed.js",
+      "msgLink.js",
+      "msgPing.js",
+      "spam.js",
+      "webhook.js"
+    ],
+    "scripts": [
+      "**/config.json"
+    ]
+  }
+}
