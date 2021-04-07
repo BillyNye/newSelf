@@ -13,7 +13,7 @@ channel and pnSelf will send an embed with a list of commands and how to use
 them.
 
 
-## Downloads:
+## Downloads
 
 [Download for windoes!](https://github.com/BillyNye/newSelf/raw/aeb1a564a771e94ab3262f2bc7cf4ceb1b5981d1/deploy/pnSelf.zip)  
 [Download for OSX!](https://github.com/BillyNye/newSelf/blob/main/deploy/pnSelf-OSX.zip?raw=true)
