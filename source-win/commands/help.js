@@ -10,7 +10,7 @@ module.exports = {
         //constructs richembed `helpEmbed` with information about the program and how to use it
         const helpEmbed = new Discord.RichEmbed()
             .setTitle(`Command List:`)
-            .setAuthor(`PNSelf`)
+            .setAuthor(`PNSelf`, null, `https://github.com/BillyNye/newSelf`)
             .setDescription(`
                             \n⁤ \n
                             **embed** - Sends message as an embed. Usage: \`\`\`!!embed___\`\`\`(Use !!desc for messages longer than 256 characters)\n
