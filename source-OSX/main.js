@@ -110,64 +110,40 @@ client.on('message', msg => {
     if (msg.content.startsWith(`https://discord.com/channels/`) && msg.author.id === uId) {
         client.commands.get(`reply`).execute(msg);
     }
-    else if (msg.content.startsWith(`https://discord.com/channels/`)) {
-        console.log(`User ` + msg.author.tag + ` attempted to use info feature in ` + msg.channel.name);
-    }
 
     //userinfo trigger
     if (msg.content.startsWith(`!!info`) && msg.author.id === uId) {
         client.commands.get(`uInfo`).execute(msg);
-    }
-    else if (msg.content.startsWith(`!!info`)) {
-        console.log(`User ` + msg.author.tag + ` attempted to use info feature in ` + msg.channel.name);
     }
 
     //wiki trigger
     if (msg.content.startsWith(`!!wiki`) && msg.author.id === uId) {
         client.commands.get(`wiki`).execute(msg);
     }
-    else if (msg.content.startsWith(`!!wiki`)) {
-        console.log(`User ` + msg.author.tag + ` attempted to use wiki feature in ` + msg.channel.name);
-    }
 
     //disappearing msg trigger
     if (msg.content.startsWith(`!!dmsg`) && msg.author.id === uId) {
         client.commands.get(`dMsg`).execute(msg);
-    }
-    else if (msg.content.startsWith(`!!dmsg`)) {
-        console.log(`User ` + msg.author.tag + ` attempted to use disappearing msg feature in ` + msg.channel.name);
     }
 
     //msg embed (title embed style) trigger
     if (msg.content.startsWith(`!!embed`) && msg.author.id === uId) {
         client.commands.get(`msgEmbed`).execute(msg);
     }
-    else if (msg.content.startsWith(`!!embed`)) {
-        console.log(`User ` + msg.author.tag + ` attempted to use embed message feature in ` + msg.channel.name);
-    }
 
     //msg embed1 (description embed style) trigger
     if (msg.content.startsWith(`!!desc`) && msg.author.id === uId) {
         client.commands.get(`msgDesc`).execute(msg);
-    }
-    else if (msg.content.startsWith(`!!desc`)) {
-        console.log(`User ` + msg.author.tag + ` attempted to use embed message feature in ` + msg.channel.name);
     }
 
     //msg embed link trigger
     if (msg.content.startsWith(`!!link`) && msg.author.id === uId) {
         client.commands.get(`msgLink`).execute(msg);
     }
-    else if (msg.content.startsWith(`!!link`)) {
-        console.log(`User ` + msg.author.tag + ` attempted to use embed link feature in ` + msg.channel.name);
-    }
 
     //msg embed ping trigger
     if (msg.content.startsWith(`!!ping`) && msg.author.id === uId) {
         client.commands.get(`msgPing`).execute(msg);
-    }
-    else if (msg.content.startsWith(`!!ping`)) {
-        console.log(`User ` + msg.author.tag + ` attempted to use embed ping feature in ` + msg.channel.name);
     }
 
     //PEOPLE WILL BE ABLE TO TELL YOU ARE USING A SELFBOT IF THIS IS ENABLED/NOT COMMENTED OUT
@@ -183,9 +159,6 @@ client.on('message', msg => {
     if (msg.content.startsWith(`${prefix[0]}spam`) && msg.author.id === uId) {
         client.commands.get(`spam`).execute(msg);
     }
-    else if (msg.content.startsWith(`${prefix[0]} spam`)) {
-        console.log(`User ` + msg.author.tag + ` attempted to use spam feature`);
-    }
 
     //dynamic embed trigger
     if (msg.content.startsWith(`!!dembed`)) {
@@ -198,3 +171,5 @@ client.on('message', msg => {
     }
 
 });
+
+client.on(`error`, console.error);
