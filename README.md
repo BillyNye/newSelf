@@ -12,8 +12,7 @@ Once you have successfully logged in with your account token, type !!help in any
 channel and pnSelf will send an embed with a list of commands and how to use
 them.  
   
-![pnSelf running on OSX](https://cdn.discordapp.com/attachments/758509574709444658/829505644054315038/Screen_Shot_2021-04-07_at_4.57.07_PM.png)
-
+<img src="https://cdn.discordapp.com/attachments/758509574709444658/829505644054315038/Screen_Shot_2021-04-07_at_4.57.07_PM.png" alt="pnSelf on OSX" width="200"/>
 
 ## Downloads
 
