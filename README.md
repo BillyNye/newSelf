@@ -43,7 +43,7 @@ Spams message set in config.json. Usage: `!!spam___?___` (The filler content is 
 
 Sends custom embed. Usage: `!!dembed___}?desc___}?url___}?img___}?color___` (Text between `!!dembed` and the final `}` before the next argument is the title. `?desc` = description. `?url` = url. `?img` = image cover for embed)  
 
-<img src="https://cdn.discordapp.com/attachments/758509574709444658/830272499102646302/Screen_Shot_2021-04-09_at_7.46.19_PM.png" alt="Example usage of dembed" wrdth="200">
+<img src="https://cdn.discordapp.com/attachments/758509574709444658/830272499102646302/Screen_Shot_2021-04-09_at_7.46.19_PM.png" alt="Example usage of dembed" width="200">
                             
 ### dmsg
 
