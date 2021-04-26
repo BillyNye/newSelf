@@ -57,4 +57,4 @@ Sends a fancy reply embed. Usage: `https://discord.com/channels/5232120966415646
 
 Sends an embed with info about a specified user such as creation and join date. Usage: `!!info @randomuser`  
 
-<img src="https://cdn.discordapp.com/attachments/523212418818637834/836369276028846141/Screen_Shot_2021-04-26_at_3.31.54_PM.png" alt="Example usage of info" width="400">
+<img src="https://cdn.discordapp.com/attachments/523212418818637834/836369276028846141/Screen_Shot_2021-04-26_at_3.31.54_PM.png" alt="Example usage of info" width="275">
