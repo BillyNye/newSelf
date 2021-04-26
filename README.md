@@ -53,7 +53,7 @@ Sends disappearing message. Usage: `!!dmsg___?____` (Text before the `?` sets th
 
 Sends a fancy reply embed. Usage: `https://discord.com/channels/523212096641564685/758509574709444658/824911238667829288_______` (Any text after the message link will be posted below the reply embed)  
 
-<img src="https://cdn.discordapp.com/attachments/523212418818637834/836372226952396850/Screen_Shot_2021-04-26_at_3.44.24_PM.png" alt="Example usage of reply" width="300">
+<img src="https://cdn.discordapp.com/attachments/523212418818637834/836372226952396850/Screen_Shot_2021-04-26_at_3.44.24_PM.png" alt="Example usage of reply" width="250">
 
 ### info
 
