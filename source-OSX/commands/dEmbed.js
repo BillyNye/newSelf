@@ -92,11 +92,10 @@ module.exports = {
         if (title.length >= 256) {
             console.log(`Your embed title needs to be less than 256 characters! (It had ` + msgContent.length + ` characters)`);
         }
-        else if (color != undefined) {
-            if (color.length > 7 || color.length < 6) {
-                console.log(`If you want to specify a color for your embed you must use a 7 character html color code.`);
+        else if (color != undefined && color.length > 7 || color.length < 6)) {
+		console.log(`If you want to specify a color for your embed you must use a 7 character html color code.`);
                 console.log(color);
-            }
+            
         }
         else {
 
