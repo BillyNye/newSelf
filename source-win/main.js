@@ -51,33 +51,53 @@ const readline = require('readline').createInterface({
     input: process.stdin,
     output: process.stdout
 })
+var i = 0;
 
-readline.question(`Change token? [Y/N]: `, choice => {
-        if (choice === `Y` || choice === `y`) {
-            console.clear();
-            readline.question(`Enter the new token: `, rlToken => {
-                let tokenData = {
-                    token: rlToken,
-                    prefix: [`!!`]
-                }
-                let data = JSON.stringify(tokenData);
-                console.clear();
-                console.log(`Changing token and logging in...`);
-                fs.writeFileSync(process.cwd() + '/config.json', data);
-                client.login(rlToken);
-                i = 1;
-            })
-        }
-        else if (choice === `N` || choice === `n`) {
-            console.log(`Logging in...`);
-            client.login(token);
-            i = 1;
-        }
-        else {
-            console.clear();
-            console.log(`You must enter either "Y", "y", "N", or "n".`);
-        }
-})
+//define login fucntion
+function login(){
+	//starts the readline question and defies choices
+     readline.question(`Change token? [Y/N]: `, choice => {
+            if (choice === `Y` || choice === `y`) {
+                 console.clear();
+                 readline.question(`Enter the new token: `, rlToken => {
+			 //new token is rlToken
+                     let tokenData = {
+                         token: rlToken,
+                         prefix: [`!!`]
+                     }
+			 //stringifies da bish
+                     let data = JSON.stringify(tokenData);
+			 //clears console and tries to log in
+                     console.clear();
+                     		console.log(`Logging in and changing token...`);
+				client.login(rlToken)
+				 .catch(error => { //catches it if it doesnt log in
+					 console.clear();
+					 console.log(`There was an issue with your token. Either your account was disabled, your password was reset, or you entered it incorrectly.\n`);
+					 i = 1;
+					 login();
+				 });
+			 if(i < 1){
+			 	fs.writeFileSync(process.cwd() + '/config.json', data);
+			 }
+                 })
+             }
+             else if (choice === `N` || choice === `n`) {
+                 console.log(`Logging in...`);
+		     client.login(token)
+			     .catch(error => {
+				     console.clear();
+				     console.log(`There was an issue with your token. Either your account was disabled, your password was reset, or you entered it incorrectly.\n`);
+				     login();
+			     });
+		     }
+             else {
+                 console.clear();
+                 console.log(`You must enter either "Y", "y", "N", or "n".`);
+      	         login();
+             }
+     })
+}
 
 client.on('ready', () => {
 
