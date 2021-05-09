@@ -1,8 +1,7 @@
 ﻿const Discord = require('discord.js');
 const fs = require('fs');
 const process = require('process');
-const { prefix, token} = require(process.cwd() + '/pnSelf/config.json');
-
+const { prefix, token } = require(process.cwd() + '/pnSelf/config.json');
 const client = new Discord.Client();
 const testClient = new Discord.Client();
 client.commands = new Discord.Collection();
@@ -32,6 +31,8 @@ const uInfo = require('./commands/uInfo.js');
 client.commands.set(uInfo.name, uInfo);
 const reply = require('./commands/reply.js');
 client.commands.set(reply.name, reply);
+const settings = require('./commands/settings.js');
+client.commands.set(settings.name, settings);
 
 
 /*
@@ -51,33 +52,54 @@ const readline = require('readline').createInterface({
     input: process.stdin,
     output: process.stdout
 })
+var i = 0;
+//define login fucntion
+function login(){
+	//starts the readline question and defies choices
+     readline.question(`Change token? [Y/N]: `, choice => {
+            if (choice === `Y` || choice === `y`) {
+                 console.clear();
+                 readline.question(`Enter the new token: `, rlToken => {
+			 //new token is rlToken
+                     let tokenData = {
+                         token: rlToken,
+                         prefix: [`!!`]
+                     }
+			 //stringifies da bish
+                     let data = JSON.stringify(tokenData);
+			 //clears console and tries to log in
+                     console.clear();
+                     		console.log(`Logging in and changing token...`);
+				client.login(rlToken)
+				 .catch(error => { //catches it if it doesnt log in
+					 console.clear();
+					 console.log(`There was an issue with your token. Either your account was disabled, your password was reset, or you entered it incorrectly.\n`);
+					 i = 1;
+					 login();
+				 });
+			 if(i < 1){
+			 	fs.writeFileSync(process.cwd() + '/pnSelf/config.json', data);
+			 }
+                 })
+             }
+             else if (choice === `N` || choice === `n`) {
+                 console.log(`Logging in...`);
+		     client.login(token)
+			     .catch(error => {
+				     console.clear();
+				     console.log(`There was an issue with your token. Either your account was disabled, your password was reset, or you entered it incorrectly.\n`);
+				     login();
+			     });
+		     }
+             else {
+                 console.clear();
+                 console.log(`You must enter either "Y", "y", "N", or "n".`);
+      	         login();
+             }
+     })
+}
 
-readline.question(`Change token? [Y/N]: `, choice => {
-        if (choice === `Y` || choice === `y`) {
-            console.clear();
-            readline.question(`Enter the new token: `, rlToken => {
-                let tokenData = {
-                    token: rlToken,
-                    prefix: [`!!`]
-                }
-                let data = JSON.stringify(tokenData);
-                console.clear();
-                console.log(`Changing token and logging in...`);
-                fs.writeFileSync(process.cwd() + '/pnSelf/config.json', data);
-                client.login(rlToken);
-                i = 1;
-            })
-        }
-        else if (choice === `N` || choice === `n`) {
-            console.log(`Logging in...`);
-            client.login(token);
-            i = 1;
-        }
-        else {
-            console.clear();
-            console.log(`You must enter either "Y", "y", "N", or "n".`);
-        }
-})
+login();
 
 client.on('ready', () => {
 
@@ -105,6 +127,11 @@ client.on('message', msg => {
     var link;
     var msgContent;
     var invSep = new String(` ⁤ ⁤`);
+
+	//settings trigger
+	if (msg.content.startsWith(prefix + `settings`) && msg.author.id === uId)  {
+		client.commands.get(`settings`).execute(msg);
+	}
 
     //reply trigger
     if (msg.content.startsWith(`https://discord.com/channels/`) && msg.author.id === uId) {
