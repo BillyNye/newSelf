@@ -7,6 +7,8 @@ module.exports = {
     description: `Sends a custom embed.`,
     execute(msg) {
 
+        var prefixString = `${prefix}`;
+
         //declares marker variable for marking the end of each argument string
         var marker;
 
@@ -78,14 +80,14 @@ module.exports = {
         }
 
         //checks title argument
-        var titleIndex = msg.content.indexOf(`!!dembed`);
+        var titleIndex = msg.content.indexOf(prefix + `dembed`);
         marker = msg.content.indexOf(`}?`, titleIndex);
 
         if (marker < 0) {
-            title = msg.content.slice(titleIndex + 8);
+            title = msg.content.slice(titleIndex + 6 + prefixString.length);
         }
         else {
-            var title = msg.content.slice(titleIndex + 8, marker);
+            var title = msg.content.slice(titleIndex + 6 + prefixString.length, marker);
         }
 
         //checks that the title is of an appropriate length

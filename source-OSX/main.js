@@ -1,7 +1,7 @@
 ﻿const Discord = require('discord.js');
 const fs = require('fs');
 const process = require('process');
-const { prefix, token } = require(process.cwd() + '/pnSelf/config.json');
+const { prefix, token, ascii } = require(process.cwd() + 'pnSelf/config.json');
 const client = new Discord.Client();
 const testClient = new Discord.Client();
 client.commands = new Discord.Collection();
@@ -15,10 +15,6 @@ const help = require('./commands/help.js');
 client.commands.set(help.name, help);
 const msgdesc = require('./commands/msgDesc.js');
 client.commands.set(msgdesc.name, msgdesc);
-const msgembed = require('./commands/msgEmbed.js');
-client.commands.set(msgembed.name, msgembed);
-const msglink = require('./commands/msgLink.js');
-client.commands.set(msglink.name, msglink);
 const msgping = require('./commands/msgPing.js');
 client.commands.set(msgping.name, msgping);
 const spam = require('./commands/spam.js');
@@ -31,8 +27,6 @@ const uInfo = require('./commands/uInfo.js');
 client.commands.set(uInfo.name, uInfo);
 const reply = require('./commands/reply.js');
 client.commands.set(reply.name, reply);
-const settings = require('./commands/settings.js');
-client.commands.set(settings.name, settings);
 
 
 /*
@@ -53,58 +47,13 @@ const readline = require('readline').createInterface({
     output: process.stdout
 })
 var i = 0;
-//define login fucntion
-function login(){
-	//starts the readline question and defies choices
-     readline.question(`Change token? [Y/N]: `, choice => {
-            if (choice === `Y` || choice === `y`) {
-                 console.clear();
-                 readline.question(`Enter the new token: `, rlToken => {
-			 //new token is rlToken
-                     let tokenData = {
-                         token: rlToken,
-                         prefix: [`!!`]
-                     }
-			 //stringifies da bish
-                     let data = JSON.stringify(tokenData);
-			 //clears console and tries to log in
-                     console.clear();
-                     		console.log(`Logging in and changing token...`);
-				client.login(rlToken)
-				 .catch(error => { //catches it if it doesnt log in
-					 console.clear();
-					 console.log(`There was an issue with your token. Either your account was disabled, your password was reset, or you entered it incorrectly.\n`);
-					 i = 1;
-					 login();
-				 });
-			 if(i < 1){
-			 	fs.writeFileSync(process.cwd() + '/pnSelf/config.json', data);
-			 }
-                 })
-             }
-             else if (choice === `N` || choice === `n`) {
-                 console.log(`Logging in...`);
-		     client.login(token)
-			     .catch(error => {
-				     console.clear();
-				     console.log(`There was an issue with your token. Either your account was disabled, your password was reset, or you entered it incorrectly.\n`);
-				     login();
-			     });
-		     }
-             else {
-                 console.clear();
-                 console.log(`You must enter either "Y", "y", "N", or "n".`);
-      	         login();
-             }
-     })
-}
 
-login();
-
-client.on('ready', () => {
+//define start page viewthinsfdgksdgsdgfsdfgdswg
+function start() {
 
     console.clear();
-    console.log(`
+    if (ascii === `1`) {
+        console.log(`
       :::::::::  ::::    :::          ::::::::  :::::::::: :::        :::::::::: 
      :+:    :+: :+:+:   :+:         :+:    :+: :+:        :+:        :+:         
     +:+    +:+ :+:+:+  +:+         +:+        +:+        +:+        +:+          
@@ -114,8 +63,89 @@ client.on('ready', () => {
 ###        ###    ####          ########  ########## ########## ###              
 \n
 `);
+    }
 
-    console.log(`Logged in as "${client.user.tag.slice()}"!`);
+    console.log(`Logged in as ${client.user.tag}`);
+
+}
+
+//define loginrejectred function
+function loginRejected() {
+
+    //readline quesrirtansetd for choice
+    readline.question(`Would you like to enter a new token [1] or exit the program? [2]\n`, choice => {
+
+        //trigger for new token
+        if (choice === `1`) {
+
+            console.clear();
+
+            //readline questiuon for new token
+            readline.question(`Enter the new token: `, rlToken => {
+
+                //defines tokenData
+                let tokenData = {
+
+                    token: rlToken,
+                    prefix: `${prefix}`,
+                    ascii: `${ascii}`
+
+                }
+
+                //stringifies tokenmData
+                let data = JSON.stringify(tokenData);
+
+                //changes token and clears screen
+                console.clear();
+                console.log(`Logging in and changing token...`);
+
+                //attempts login with new token and if it doesnt work it recurses
+                client.login(rlToken)
+                    .catch(error => {
+                        console.clear();
+                        console.log(`There was an issue with your token. Either your account was disabled, your password was reset, or you entered it incorrectly.\n`);
+                        loginRejected();
+                    });
+
+                //writes stringified tokenData (aka data) to config.json
+                fs.writeFileSync(process.cwd() + 'pnSelf/config.json', data);
+
+            });
+
+        }
+
+        //trigger for exit
+        else if (choice === `2`) {
+
+            //exits process
+            process.exit();
+
+        }
+
+        //trigger for incorrect entry
+        else {
+
+            //tells dumb user how to do it properly (as if it needed any explanation >:|) and recusreserssd
+            console.log(`You must enter either "1" to change your token, or "2" to exit the program`);
+            loginRejected();
+
+        }
+
+    });
+}
+
+//checks if provided token is valid
+client.login(token)
+    .catch(error => {
+        console.clear();
+        console.log(`There was an issue with your token. Either your account was disabled, your password was reset, or you entered it incorrectly.\n`);
+        loginRejected();
+    });
+
+
+client.on('ready', () => {
+
+    start();
 
 });
 
@@ -139,61 +169,52 @@ client.on('message', msg => {
     }
 
     //userinfo trigger
-    if (msg.content.startsWith(`!!info`) && msg.author.id === uId) {
+    if (msg.content.startsWith(prefix + `info`) && msg.author.id === uId) {
         client.commands.get(`uInfo`).execute(msg);
     }
 
     //wiki trigger
-    if (msg.content.startsWith(`!!wiki`) && msg.author.id === uId) {
+    if (msg.content.startsWith(prefix + `wiki`) && msg.author.id === uId) {
         client.commands.get(`wiki`).execute(msg);
     }
 
     //disappearing msg trigger
-    if (msg.content.startsWith(`!!dmsg`) && msg.author.id === uId) {
+    if (msg.content.startsWith(prefix + `dmsg`) && msg.author.id === uId) {
         client.commands.get(`dMsg`).execute(msg);
     }
 
     //msg embed (title embed style) trigger
-    if (msg.content.startsWith(`!!embed`) && msg.author.id === uId) {
+    if (msg.content.startsWith(prefix + `embed`) && msg.author.id === uId) {
         client.commands.get(`msgEmbed`).execute(msg);
     }
 
     //msg embed1 (description embed style) trigger
-    if (msg.content.startsWith(`!!desc`) && msg.author.id === uId) {
+    if (msg.content.startsWith(prefix + `desc`) && msg.author.id === uId) {
         client.commands.get(`msgDesc`).execute(msg);
     }
 
     //msg embed link trigger
-    if (msg.content.startsWith(`!!link`) && msg.author.id === uId) {
+    if (msg.content.startsWith(prefix + `link`) && msg.author.id === uId) {
         client.commands.get(`msgLink`).execute(msg);
     }
 
     //msg embed ping trigger
-    if (msg.content.startsWith(`!!ping`) && msg.author.id === uId) {
+    if (msg.content.startsWith(prefix + `ping`) && msg.author.id === uId) {
         client.commands.get(`msgPing`).execute(msg);
     }
 
-    //PEOPLE WILL BE ABLE TO TELL YOU ARE USING A SELFBOT IF THIS IS ENABLED/NOT COMMENTED OUT
-    //reaction trigger for "hot" emoji shit
-    /*
-    if (msg.content === 'hot' || msg.content === 'Hot' || msg.content === 'HOT') {
-        msg.react('🔥');
-        console.log('Reacted to the heat in #' + msg.channel.name);
-    }
-    */
-
     //spam trigger
-    if (msg.content.startsWith(`${prefix[0]}spam`) && msg.author.id === uId) {
+    if (msg.content.startsWith(prefix + `spam`) && msg.author.id === uId) {
         client.commands.get(`spam`).execute(msg);
     }
 
     //dynamic embed trigger
-    if (msg.content.startsWith(`!!dembed`)) {
+    if (msg.content.startsWith(prefix + `dembed`)) {
         client.commands.get(`dEmbed`).execute(msg);
     }
 
     //help trigger
-    if (msg.content.startsWith(`!!help`)) {
+    if (msg.content.startsWith(prefix + `help`)) {
         client.commands.get(`help`).execute(msg);
     }
 

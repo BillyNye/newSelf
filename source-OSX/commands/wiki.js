@@ -6,13 +6,14 @@ module.exports = {
     name: `wiki`,
     description: `Posts link to wiki article of text after command.`,
     execute(msg) {
+        var prefixString = `${prefix}`;
         var content;
 
-        if (msg.content.startsWith(`!!wiki `)) {
-            content = msg.content.slice(7);
+        if (msg.content.startsWith(prefix + `wiki `)) {
+            content = msg.content.slice(5 + prefixString.length);
         }
         else {
-            content = msg.content.slice(6);
+            content = msg.content.slice(4 + prefixString.length);
         }
         content = content.replace(/ /g, `_`);
         var wikiContent = `https://en.wikipedia.org/wiki/` + content;

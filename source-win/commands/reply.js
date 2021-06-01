@@ -34,12 +34,17 @@ module.exports = {
             .then(msg => {
 
                 var channelName;
+                var color;
 
-                if (msg.channel.name === undefined) {
+                //checks if its in a DM channel or a guild channel
+                if (msg.guild === null) {
                     channelName = `DMs`;
+                    color = "999999";
                 }
                 else {
+                    const member = msg.guild.member(msg.author);
                     channelName = `#` + msg.channel.name;
+                    color = member.displayHexColor;
                 }
 
                 //constructs new embed for da original message to be displayed in
@@ -48,6 +53,7 @@ module.exports = {
                     .setAuthor(msg.author.username, msg.author.avatarURL)
                     .setTimestamp(msg.createdTimestamp)
                     .setFooter(channelName)
+                    .setColor(color)
 
                 if (reply.startsWith(` `)) {
                     reply = reply.slice(1);
